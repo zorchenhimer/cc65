@@ -45,6 +45,8 @@
 #include "error.h"
 
 
+unsigned ColorMessages = 0;
+
 
 /*****************************************************************************/
 /*                                   Code                                    */
@@ -63,7 +65,11 @@ void Warning (const char* Format, ...)
     va_end (ap);
     SB_Terminate (&S);
 
-    fprintf (stderr, "%s: Warning: %s\n", ProgName, SB_GetConstBuf (&S));
+    if (ColorMessages == 1) {
+        fprintf (stderr, "%s: \x1B[33mWarning\x1B[0m: %s\n", ProgName, SB_GetConstBuf (&S));
+    } else {
+        fprintf (stderr, "%s: Warning: %s\n", ProgName, SB_GetConstBuf (&S));
+    }
 
     SB_Done (&S);
 }
@@ -81,7 +87,11 @@ void Error (const char* Format, ...)
     va_end (ap);
     SB_Terminate (&S);
 
-    fprintf (stderr, "%s: Error: %s\n", ProgName, SB_GetConstBuf (&S));
+    if (ColorMessages == 1) {
+        fprintf (stderr, "%s: \x1B[31mError\x1B[0m: %s\n", ProgName, SB_GetConstBuf (&S));
+    } else {
+        fprintf (stderr, "%s: Error: %s\n", ProgName, SB_GetConstBuf (&S));
+    }
 
     SB_Done (&S);
 
@@ -101,7 +111,11 @@ void Internal (const char* Format, ...)
     va_end (ap);
     SB_Terminate (&S);
 
-    fprintf (stderr, "%s: Internal Error: %s\n", ProgName, SB_GetConstBuf (&S));
+    if (ColorMessages == 1) {
+        fprintf (stderr, "%s: \x1B[31mInternal Error\x1B[0m: %s\n", ProgName, SB_GetConstBuf (&S));
+    } else {
+        fprintf (stderr, "%s: Internal Error: %s\n", ProgName, SB_GetConstBuf (&S));
+    }
 
     SB_Done (&S);
 

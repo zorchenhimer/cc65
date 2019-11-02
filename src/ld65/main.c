@@ -309,6 +309,15 @@ static void OptCfgPath (const char* Opt attribute ((unused)), const char* Arg)
 
 
 
+static void OptColorMessages(const char* Opt attribute ((unused)),
+                             const char* Arg attribute ((unused)))
+/* Turn on color error and warning messages */
+{
+    ColorMessages = 1;
+}
+
+
+
 static void OptConfig (const char* Opt attribute ((unused)), const char* Arg)
 /* Define the config file */
 {
@@ -611,6 +620,7 @@ static void ParseCommandLine(void)
     static const LongOpt OptTab[] = {
         { "--allow-multiple-definition", 0,      OptMultDef              },
         { "--cfg-path",                  1,      OptCfgPath              },
+        { "--color-messages",            0,      OptColorMessages        },
         { "--config",                    1,      CmdlOptConfig           },
         { "--dbgfile",                   1,      OptDbgFile              },
         { "--define",                    1,      OptDefine               },
