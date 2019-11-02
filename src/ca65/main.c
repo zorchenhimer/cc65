@@ -439,6 +439,15 @@ static void OptCPU (const char* Opt attribute ((unused)), const char* Arg)
 
 
 
+static void OptColorMessages(const char* Opt attribute ((unused)),
+                             const char* Arg attribute ((unused)))
+/* Turn on color error and warning messages */
+{
+    ColorMessages = 1;
+}
+
+
+
 static void OptCreateDep (const char* Opt, const char* Arg)
 /* Handle the --create-dep option */
 {
@@ -910,6 +919,7 @@ int main (int argc, char* argv [])
         { "--auto-import",      0,      OptAutoImport           },
         { "--bin-include-dir",  1,      OptBinIncludeDir        },
         { "--cpu",              1,      OptCPU                  },
+        { "--color-messages",   0,      OptColorMessages        },
         { "--create-dep",       1,      OptCreateDep            },
         { "--create-full-dep",  1,      OptCreateFullDep        },
         { "--debug",            0,      OptDebug                },

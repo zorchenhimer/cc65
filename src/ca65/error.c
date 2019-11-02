@@ -61,6 +61,8 @@ unsigned WarnLevel      = 1;
 unsigned ErrorCount     = 0;
 unsigned WarningCount   = 0;
 
+unsigned ColorMessages  = 0;
+
 /* Maximum number of additional notifications */
 #define MAX_NOTES       8
 
@@ -196,7 +198,11 @@ static void WarningMsg (const Collection* LineInfos, const char* Format, va_list
     const LineInfo* LI = CollConstAt (LineInfos, 0);
 
     /* Output a warning for this position */
-    VPrintMsg (GetSourcePos (LI), "Warning", Format, ap);
+    if (ColorMessages == 1) {
+        VPrintMsg (GetSourcePos (LI), "\x1B[33mWarning\x1B[0m", Format, ap);
+    } else {
+        VPrintMsg (GetSourcePos (LI), "Warning", Format, ap);
+    }
 
     /* Add additional notifications if necessary */
     AddNotifications (LineInfos);
@@ -274,7 +280,11 @@ void ErrorMsg (const Collection* LineInfos, const char* Format, va_list ap)
     const LineInfo* LI = CollConstAt (LineInfos, 0);
 
     /* Output an error for this position */
-    VPrintMsg (GetSourcePos (LI), "Error", Format, ap);
+    if (ColorMessages == 1) {
+        VPrintMsg (GetSourcePos (LI), "\x1B[31mError\x1B[0m", Format, ap);
+    } else {
+        VPrintMsg (GetSourcePos (LI), "Error", Format, ap);
+    }
 
     /* Add additional notifications if necessary */
     AddNotifications (LineInfos);

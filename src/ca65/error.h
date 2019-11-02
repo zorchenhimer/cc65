@@ -64,6 +64,7 @@ extern unsigned WarnLevel;
 extern unsigned ErrorCount;
 extern unsigned WarningCount;
 
+extern unsigned ColorMessages;
 
 
 /*****************************************************************************/
